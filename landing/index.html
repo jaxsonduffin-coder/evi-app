@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#2563EB" />
+<title>EVI — Your AI House Manager</title>
+<meta name="description" content="EVI is the AI-powered household manager that reads your documents, tracks warranties, and reminds you of everything so you never miss a deadline again." />
+<meta property="og:title" content="EVI — Your AI House Manager" />
+<meta property="og:description" content="AI that runs your household so you don't have to." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #2563EB;
+    --primary-dark: #1E40AF;
+    --primary-light: #EFF6FF;
+    --secondary: #7C3AED;
+    --accent: #F59E0B;
+    --text: #0F172A;
+    --text-secondary: #475569;
+    --text-tertiary: #94A3B8;
+    --bg: #FFFFFF;
+    --surface: #F8FAFC;
+    --border: #E2E8F0;
+    --urgent: #EF4444;
+    --good: #10B981;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  nav .container {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-size: 24px; font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-weight: 500; font-size: 14px;
+  }
+  .nav-links a:hover { color: var(--primary); }
+  .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform .1s, box-shadow .2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--primary-light); }
+
+  /* Hero */
+  .hero {
+    padding: 120px 0 80px;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFFFF 0%, #EFF6FF 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 20px;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto 40px;
+  }
+  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* Phone mockup */
+  .phone-showcase {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .phone {
+    width: 320px;
+    height: 640px;
+    background: white;
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow: 0 40px 80px -20px rgba(37,99,235,0.3), 0 0 0 12px #0F172A;
+    position: relative;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    border-radius: 32px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .phone-greeting {
+    font-size: 22px; font-weight: 800; margin-top: 30px;
+  }
+  .phone-sub { font-size: 14px; color: var(--text-tertiary); margin-bottom: 12px; }
+  .alert-card {
+    padding: 14px; border-radius: 12px;
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 13px;
+  }
+  .alert-urgent { background: #FEF2F2; color: var(--urgent); }
+  .alert-warning { background: #FFFBEB; color: #B45309; }
+  .alert-info { background: #EFF6FF; color: var(--primary); }
+  .alert-title { font-weight: 700; margin-bottom: 2px; }
+
+  /* Features */
+  .features {
+    padding: 100px 0;
+    background: white;
+  }
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .section-header h2 {
+    font-size: 44px; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;
+  }
+  .section-header p {
+    color: var(--text-secondary); font-size: 18px; max-width: 640px; margin: 0 auto;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+  .feature-card {
+    padding: 32px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1);
+  }
+  .feature-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: var(--primary-light); color: var(--primary);
+    display: grid; place-items: center;
+    font-size: 28px; margin-bottom: 20px;
+  }
+  .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .feature-card p { color: var(--text-secondary); font-size: 15px; }
+
+  /* Pricing */
+  .pricing { padding: 100px 0; background: var(--surface); }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .price-card {
+    background: white;
+    padding: 40px 32px;
+    border-radius: 20px;
+    border: 2px solid var(--border);
+    text-align: center;
+    position: relative;
+  }
+  .price-card.featured {
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.2);
+    transform: scale(1.03);
+  }
+  .price-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--primary); color: white;
+    padding: 4px 16px; border-radius: 8px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .price-name { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-tertiary); font-weight: 700; }
+  .price-amount { font-size: 56px; font-weight: 900; margin: 8px 0 4px; }
+  .price-amount small { font-size: 18px; color: var(--text-tertiary); font-weight: 500; }
+  .price-desc { color: var(--text-secondary); margin-bottom: 24px; font-size: 14px; }
+  .price-features { list-style: none; text-align: left; margin-bottom: 32px; }
+  .price-features li {
+    padding: 8px 0; color: var(--text-secondary); font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .price-features li::before {
+    content: "✓"; color: var(--good); font-weight: 700;
+  }
+  .price-btn {
+    width: 100%; display: block; text-align: center;
+    padding: 14px; border-radius: 12px;
+    font-weight: 700; text-decoration: none;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .featured .price-btn {
+    background: var(--primary); color: white; border-color: var(--primary);
+  }
+
+  /* CTA */
+  .cta {
+    padding: 100px 0;
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+  }
+  .cta h2 {
+    font-size: 48px; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px;
+  }
+  .cta p { font-size: 20px; opacity: 0.9; margin-bottom: 32px; }
+  .cta .btn {
+    background: white; color: var(--primary);
+    font-size: 17px; padding: 16px 36px;
+  }
+  .cta .btn:hover {
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  }
+
+  /* Footer */
+  footer {
+    padding: 40px 0 32px;
+    background: #0F172A;
+    color: #94A3B8;
+    text-align: center;
+    font-size: 14px;
+  }
+  footer a { color: #94A3B8; text-decoration: none; }
+  footer a:hover { color: white; }
+  .footer-links {
+    display: flex; gap: 32px; justify-content: center;
+    margin-bottom: 20px; flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-links.mobile { display: flex; gap: 12px; }
+    .hero { padding: 80px 0 60px; }
+    .cta h2, .section-header h2 { font-size: 32px; }
+    .phone { width: 260px; height: 520px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">EVI</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#download" class="btn">Get the App</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <h1>Your household,<br /><span>on autopilot.</span></h1>
+    <p>EVI is the AI-powered household manager that reads your documents, tracks your warranties, and reminds you of everything — so you never miss a deadline again.</p>
+    <div class="hero-cta">
+      <a href="#download" class="btn">Download on App Store</a>
+      <a href="#download" class="btn btn-secondary">Get on Google Play</a>
+    </div>
+
+    <div class="phone-showcase">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-greeting">Good evening, Jaxson</div>
+          <div class="phone-sub">Here's what needs attention.</div>
+          <div class="alert-card alert-urgent">
+            <div>⚠️</div>
+            <div>
+              <div class="alert-title">Car registration in 14 days</div>
+              <div>Renew before Oct 8</div>
+            </div>
+          </div>
+          <div class="alert-card alert-warning">
+            <div>🔧</div>
+            <div>
+              <div class="alert-title">HVAC filter change</div>
+              <div>90 days since last swap</div>
+            </div>
+          </div>
+          <div class="alert-card alert-info">
+            <div>📄</div>
+            <div>
+              <div class="alert-title">Lease renewal in 60 days</div>
+              <div>Time to review options</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-header">
+      <h2>Everything your home needs. One app.</h2>
+      <p>Stop juggling folders, sticky notes, and calendar reminders. EVI reads your documents and takes care of the tracking for you.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📁</div>
+        <h3>Smart Document Vault</h3>
+        <p>Upload leases, warranties, receipts. AI extracts key dates and amounts automatically. Search across everything instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏠</div>
+        <h3>Home Profile</h3>
+        <p>Rent or own — EVI adapts. Track lease terms, landlord info, property details, and every system in your home.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚗</div>
+        <h3>Vehicle Management</h3>
+        <p>Registration, insurance, maintenance history. Reminders 30 days before anything expires.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <h3>Appliance Tracker</h3>
+        <p>Never wonder about warranties again. Log every appliance and get alerts before coverage lapses.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>Ask EVI</h3>
+        <p>"When does my lease end?" "What warranties do I have?" Just ask. Natural language that actually works.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Household Sharing</h3>
+        <p>Roommates, family, partners. Everyone on the same page. Everyone with the same reminders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2>Simple pricing. Real value.</h2>
+      <p>Start free. Upgrade when your household needs more.</p>
+    </div>
+
+    <p style="text-align:center; color: var(--text-secondary); margin: -32px 0 40px; font-size:15px;">Cancel anytime · save 17% with annual</p>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-name">Solo</div>
+        <div class="price-amount">$9.99<small>/mo</small></div>
+        <p class="price-desc">or <strong>$99.99/year</strong> — save 2 months</p>
+        <ul class="price-features">
+          <li>AI document intelligence</li>
+          <li>Ask EVI AI</li>
+          <li>Unlimited tasks & reminders</li>
+          <li>Proactive alerts</li>
+          <li>100 documents · 5GB</li>
+        </ul>
+        <a href="#download" class="price-btn">Try Free</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-name">Household</div>
+        <div class="price-amount">$19.99<small>/mo</small></div>
+        <p class="price-desc">or <strong>$199.99/year</strong> — save 2 months</p>
+        <ul class="price-features">
+          <li>Everything in Solo</li>
+          <li>Up to 10 household members</li>
+          <li>Shared documents & tasks</li>
+          <li>Family calendar</li>
+          <li>500 documents · 25GB</li>
+        </ul>
+        <a href="#download" class="price-btn">Try Free</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-name">Property Pro</div>
+        <div class="price-amount">$39.99<small>/mo</small></div>
+        <p class="price-desc">or <strong>$399.99/year</strong> — for landlords</p>
+        <ul class="price-features">
+          <li>Everything in Household</li>
+          <li>Up to 5 properties</li>
+          <li>Tenant management</li>
+          <li>Rent collection reminders</li>
+          <li>Priority AI + support</li>
+          <li>2500 documents · 100GB</li>
+        </ul>
+        <a href="#download" class="price-btn">Try Free</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta" id="download">
+  <div class="container">
+    <h2>Ready to end the household chaos?</h2>
+    <p>Join thousands of families and individuals letting EVI manage the details.</p>
+    <a href="#" class="btn">Download EVI</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo" style="margin-bottom: 20px;">EVI</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:support@jdnorth.co">Support</a>
+      <a href="mailto:hello@jdnorth.co">Contact</a>
+    </div>
+    <div>© 2026 JD North LLC · Idaho, USA</div>
+  </div>
+</footer>
+
+</body>
+</html>

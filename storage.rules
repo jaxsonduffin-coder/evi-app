@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Household documents — only members can read/write
+    match /households/{householdId}/documents/{fileName} {
+      allow read: if request.auth != null &&
+        request.auth.uid in firestore.get(/databases/(default)/documents/households/$(householdId)).data.memberIds;
+
+      allow write: if request.auth != null &&
+        request.auth.uid in firestore.get(/databases/(default)/documents/households/$(householdId)).data.memberIds
+        && request.resource.size < 25 * 1024 * 1024  // Max 25MB per file
+        && request.resource.contentType.matches('image/.*|application/pdf|application/msword|application/vnd.openxmlformats-officedocument.*|text/.*');
+    }
+
+    // User avatars
+    match /users/{userId}/avatar/{fileName} {
+      allow read: if request.auth != null;
+      allow write: if request.auth.uid == userId
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Data exports — only the owning user can read their own export file.
+    // Written only by Cloud Functions (admin SDK bypasses these rules).
+    match /exports/{userId}/{fileName} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // Household photos
+    match /households/{householdId}/photos/{fileName} {
+      allow read: if request.auth != null &&
+        request.auth.uid in firestore.get(/databases/(default)/documents/households/$(householdId)).data.memberIds;
+      allow write: if request.auth != null &&
+        request.auth.uid in firestore.get(/databases/(default)/documents/households/$(householdId)).data.memberIds
+        && request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+  }
+}
