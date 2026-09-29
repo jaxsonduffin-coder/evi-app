@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="letter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0F9FF"/>
+    </linearGradient>
+    <filter id="softGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background with rounded corners (iOS style) -->
+  <rect width="1024" height="1024" rx="224" ry="224" fill="url(#bg)"/>
+
+  <!-- Subtle house silhouette in background -->
+  <path d="M 512 260 L 780 480 L 780 780 L 244 780 L 244 480 Z" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Main "E" letter mark - stylized as a house with a smart core -->
+  <g filter="url(#softGlow)">
+    <!-- Vertical stem of E -->
+    <rect x="320" y="320" width="80" height="384" rx="16" fill="url(#letter)"/>
+    <!-- Top horizontal -->
+    <rect x="320" y="320" width="384" height="80" rx="16" fill="url(#letter)"/>
+    <!-- Middle horizontal (shorter, indicating "smart") -->
+    <rect x="320" y="472" width="280" height="80" rx="16" fill="url(#letter)"/>
+    <!-- Bottom horizontal -->
+    <rect x="320" y="624" width="384" height="80" rx="16" fill="url(#letter)"/>
+  </g>
+
+  <!-- AI dot accent - suggesting intelligence -->
+  <circle cx="710" cy="512" r="24" fill="#F59E0B"/>
+
+  <!-- Small roof accent above E -->
+  <path d="M 300 320 L 512 200 L 724 320" stroke="rgba(255,255,255,0.4)" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

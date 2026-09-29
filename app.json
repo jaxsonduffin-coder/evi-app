@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "EVI",
+    "slug": "evi-app",
+    "scheme": "evi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": false,
+      "bundleIdentifier": "com.jdnorth.evi",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "EVI needs camera access so you can scan documents and photograph appliances or serial numbers.",
+        "NSPhotoLibraryUsageDescription": "EVI needs photo library access so you can upload existing images of documents and appliances.",
+        "NSMicrophoneUsageDescription": "EVI uses the microphone only when you record voice notes on tasks."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.jdnorth.evi"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-image",
+      "expo-font",
+      "./plugins/withPrivacyManifest",
+      "@react-native-community/datetimepicker",
+      "@react-native-firebase/app",
+      "@react-native-firebase/analytics"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "95679258-9115-44b7-86f5-7aa4a802b264"
+      }
+    },
+    "owner": "jduff_75"
+  }
+}

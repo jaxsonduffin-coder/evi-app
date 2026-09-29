@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1284 2778">
+  <defs>
+    <linearGradient id="splashBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1284" height="2778" fill="url(#splashBg)"/>
+
+  <!-- Centered logo group -->
+  <g transform="translate(642, 1350)">
+    <!-- Rounded square container -->
+    <rect x="-200" y="-200" width="400" height="400" rx="90" fill="url(#brand)"/>
+
+    <!-- "E" mark -->
+    <rect x="-110" y="-125" width="35" height="250" rx="8" fill="white"/>
+    <rect x="-110" y="-125" width="220" height="35" rx="8" fill="white"/>
+    <rect x="-110" y="-18" width="160" height="35" rx="8" fill="white"/>
+    <rect x="-110" y="90" width="220" height="35" rx="8" fill="white"/>
+
+    <!-- AI accent dot -->
+    <circle cx="105" cy="0" r="14" fill="#F59E0B"/>
+  </g>
+
+  <!-- App name -->
+  <text x="642" y="1650" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="72" font-weight="900" fill="#0F172A" letter-spacing="-2">EVI</text>
+
+  <!-- Tagline -->
+  <text x="642" y="1720" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="28" font-weight="500" fill="#475569">Your House Manager</text>
+</svg>
